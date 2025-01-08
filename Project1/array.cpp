@@ -239,5 +239,5 @@ Array<T> Array<T>::operator*(const Array& other) const
     return result;
 }
 
-
+template class Array<int>;
 

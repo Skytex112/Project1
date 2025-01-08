@@ -1,7 +1,8 @@
 //#pragma once
 //#include <iostream>
 //
-//class Array {
+//class Array 
+//{
 //private:
 //    int* data;
 //    size_t size;
@@ -20,4 +21,15 @@
 //    void sortArray();
 //    int findMin() const;
 //    int findMax() const;
+//
+//    Array& operator=(const Array& other); 
+//    Array operator+(const Array& other) const; 
+//    Array& operator+=(const Array& other); 
+//    int& operator[](size_t index); 
+//    const int& operator[](size_t index) const; 
+//    bool operator==(const Array& other) const; 
+//    bool operator!=(const Array& other) const; 
+//    bool operator>(const Array& other) const; 
+//    bool operator<(const Array& other) const; 
+//    Array operator*(const Array& other) const; 
 //};

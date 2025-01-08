@@ -257,6 +257,32 @@ void Array<T>::Append(const T& value)
     size++;
 }
 
+template <typename T>
+void Array<T>::Remove(size_t index)
+{
+    if (index >= size)
+    {
+        std::cout << "Index out of bounds!" << std::endl;
+        return;
+    }
+
+    for (size_t i = index; i < size - 1; ++i)
+    {
+        data[i] = data[i + 1];
+    }
+
+    --size;
+
+    T* newData = new T[size];
+    for (size_t i = 0; i < size; ++i)
+    {
+        newData[i] = data[i];
+    }
+
+    delete[] data;
+    data = newData;
+}
+
 
 template class Array<int>;
 

@@ -33,4 +33,5 @@ public:
     Array operator*(const Array& other) const;
 
     void Append(const T& value);
+    void Remove(size_t index);
 };

@@ -8,11 +8,11 @@ int main() {
     arr1.display();
 
     arr1.Append(999);
-    cout << "After appending 42: ";
+    cout << "After appending: ";
     arr1.display();  
 
-    arr1.Append(1000);
-    cout << "After appending 99: ";
+    arr1.Remove(3);
+    cout << "Array after removing element at index 2: ";
     arr1.display();
 
     arr1.sortArray();

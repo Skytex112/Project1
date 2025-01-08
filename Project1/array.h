@@ -31,4 +31,6 @@ public:
     bool operator>(const Array& other) const;
     bool operator<(const Array& other) const;
     Array operator*(const Array& other) const;
+
+    void Append(const T& value);
 };

@@ -239,5 +239,24 @@ Array<T> Array<T>::operator*(const Array& other) const
     return result;
 }
 
+template <typename T>
+void Array<T>::Append(const T& value) 
+{
+    T* newData = new T[size + 1];
+
+    for (size_t i = 0; i < size; ++i) 
+    {
+        newData[i] = data[i];
+    }
+
+    newData[size] = value;
+
+    delete[] data;
+    data = newData;
+
+    size++;
+}
+
+
 template class Array<int>;
 

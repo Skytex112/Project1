@@ -7,6 +7,14 @@ int main() {
     cout << "Initial array: ";
     arr1.display();
 
+    arr1.Append(999);
+    cout << "After appending 42: ";
+    arr1.display();  
+
+    arr1.Append(1000);
+    cout << "After appending 99: ";
+    arr1.display();
+
     arr1.sortArray();
     cout << "Sorted array: ";
     arr1.display();
@@ -19,24 +27,23 @@ int main() {
     cout << "Resized and filled array: ";
     arr1.display();
 
-    Array<int> arr2(5, 10, 50);
+    Array<int> arr2(3);
+    arr2.fillRandom(10, 50);
     cout << "Second array: ";
-    arr2.display();
+    arr2.display();  
 
-    Array<int> arr3 = arr1 + arr2;
-    cout << "Array 1 + Array 2: ";
-    arr3.display();
-
-    arr1 += arr2;
+    arr1 += arr2;  
     cout << "Array 1 after += Array 2: ";
     arr1.display();
 
     cout << "Element at index 3: " << arr1[3] << endl;
 
-    if (arr1 == arr2) {
+    if (arr1 == arr2) 
+    {
         cout << "Arrays are equal." << endl;
     }
-    else {
+    else 
+    {
         cout << "Arrays are not equal." << endl;
     }
 

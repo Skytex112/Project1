@@ -6,7 +6,7 @@
 //
 //int main() {
 //    Reservoir r1("Black Sea", "Sea", 1000, 2000, 2210);
-//    Reservoir r2("Lake Synevyr", "Lake", 500, 600, 22);
+//    Reservoir r2("Lake Synevyr", "Lake", 320, 440, 22);
 //    Reservoir r3("Basin", "Basin", 25, 50, 2);
 //
 //    r1.printInfo();

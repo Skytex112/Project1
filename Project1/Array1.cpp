@@ -1,80 +1,138 @@
 #include "Array1.h"
-template<typename T>
-void Array1<T>::clear() {
+#include <iostream>
+
+const size_t DEFAULT_CAPACITY = 10;
+
+void Array1::clear() {
     delete[] data;
     data = nullptr;
     size = 0;
+    capacity = 0;
 }
-template<typename T>
-Array1<T>::Array1() : data(nullptr), size(0) {}
-template<typename T>
-Array1<T>::Array1(size_t n) : size(n) {
-    data = new T[size]{ 0 };
+
+Array1::Array1() : size(0), capacity(DEFAULT_CAPACITY) {
+    data = new int[capacity] {0};
 }
-template<typename T>
-Array1<T>::Array1(size_t n, int min, int max) : size(n) {
-    data = new T[size];
+
+Array1::Array1(size_t n) : size(n), capacity(n) {
+    data = new int[capacity] {0};
+}
+
+Array1::Array1(size_t n, int min, int max) : size(n), capacity(n) {
+    data = new int[capacity];
     fillRandom(min, max);
 }
-template<typename T>
-Array1<T>::Array1(size_t n, T x) : size(n) {
-    data = new T[size];
+
+Array1::Array1(size_t n, int x) : size(n), capacity(n) {
+    data = new int[capacity];
     for (size_t i = 0; i < size; ++i) {
         data[i] = x;
     }
 }
-template<typename T>
-Array1<T>::Array1(const Array1& other) : size(other.size) {
-    data = new T[size];
+
+Array1::Array1(const Array1& other) : size(other.size), capacity(other.capacity) {
+    data = new int[capacity];
     for (size_t i = 0; i < size; ++i) {
         data[i] = other.data[i];
     }
 }
-template<typename T>
-Array1<T>::~Array1() {
+
+Array1::~Array1() {
     clear();
 }
-template<typename T>
-void Array1<T>::display() const {
+
+void Array1::display() const {
     for (size_t i = 0; i < size; ++i) {
         std::cout << data[i] << " ";
     }
     std::cout << std::endl;
 }
-template<typename T>
-void Array1<T>::fillRandom(int min, int max) {
+
+void Array1::fillRandom(int min, int max) {
     for (size_t i = 0; i < size; ++i) {
-        while (data[i] < min)
-        {
-            data[i] = rand() % max + 1;
-        }
+        data[i] = rand() % (max - min + 1) + min;
     }
 }
-template<typename T>
-void Array1<T>::resize(size_t newSize) {
-    T* newData = new T[newSize]{ 0 };
-    size_t minSize = (size < newSize) ? size : newSize;
-    for (size_t i = 0; i < minSize; ++i) {
-        newData[i] = data[i];
+
+size_t Array1::getSize() const {
+    return size;
+}
+
+size_t Array1::getCapacity() const {
+    return capacity;
+}
+
+void Array1::append(int value) {
+    if (size == capacity) {
+        reserve(capacity * 2);
     }
-    clear();
-    data = newData;
+    data[size++] = value;
+}
+
+void Array1::erase(size_t index) {
+    if (index >= size) {
+        return;
+    }
+    for (size_t i = index; i < size - 1; ++i) {
+        data[i] = data[i + 1];
+    }
+    --size;
+}
+
+
+void Array1::clearAll() {
+    size = 0;
+}
+
+void Array1::reserve(size_t extraCapacity) {
+    if (extraCapacity > capacity) {
+        int* newData = new int[extraCapacity];
+        for (size_t i = 0; i < size; ++i) {
+            newData[i] = data[i];
+        }
+        delete[] data;
+        data = newData;
+        capacity = extraCapacity;
+    }
+}
+
+
+void Array1::shrink() {
+    if (capacity > size) {
+        int* newData = new int[size];
+        for (size_t i = 0; i < size; ++i) {
+            newData[i] = data[i];
+        }
+        delete[] data;
+        data = newData;
+        capacity = size;
+    }
+}
+
+
+void Array1::resize(size_t newSize) {
+    if (newSize > capacity) {
+        reserve(newSize);
+    }
+    for (size_t i = size; i < newSize; ++i) {
+        data[i] = 0;
+    }
     size = newSize;
 }
-template<typename T>
-void Array1<T>::sort() {
+
+void Array1::sort() {
     for (size_t i = 0; i < size - 1; ++i) {
         for (size_t j = 0; j < size - i - 1; ++j) {
             if (data[j] > data[j + 1]) {
-                T temp = data[j];
+                int temp = data[j];
                 data[j] = data[j + 1];
                 data[j + 1] = temp;
             }
         }
     }
 }
-template<typename T>
-T Array1<T>::getMin() const {
+
+int Array1::getMin() const {
     int minValue = data[0];
     for (size_t i = 1; i < size; ++i) {
         if (data[i] < minValue) {
@@ -83,8 +141,8 @@ T Array1<T>::getMin() const {
     }
     return minValue;
 }
-template<typename T>
-T Array1<T>::getMax() const {
+
+int Array1::getMax() const {
     int maxValue = data[0];
     for (size_t i = 1; i < size; ++i) {
         if (data[i] > maxValue) {
@@ -92,19 +150,4 @@ T Array1<T>::getMax() const {
         }
     }
     return maxValue;
-}
-template<typename T>
-void Array1<T>::append(T value) {
-    resize(size + 1);
-    data[size - 1] = value;
-}
-template<typename T>
-void Array1<T>::remove(size_t index) {
-    if (index >= size) {
-        return;
-    }
-    for (size_t i = index; i < size - 1; ++i) {
-        data[i] = data[i + 1];
-    }
-    resize(size - 1);
 }
